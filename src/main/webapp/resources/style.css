@@ -1,0 +1,16 @@
+.alert{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+}
+.container-fluid{
+    border: 2px solid #cdffc9;
+    border-radius: 10px;
+    background-color: #effbee;
+}
+
+.glyphicon {
+    cursor: pointer;
+}
