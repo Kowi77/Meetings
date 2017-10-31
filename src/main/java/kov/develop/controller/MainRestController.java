@@ -1,21 +1,21 @@
 package kov.develop.controller;
 
 
+import kov.develop.model.Meeting;
+import kov.develop.service.DepartService;
+import kov.develop.service.EmployerService;
+import kov.develop.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import static kov.develop.utils.ControllerUtils.getErrors;
 
 /**
  * Main rest controller
@@ -23,28 +23,41 @@ import static kov.develop.utils.ControllerUtils.getErrors;
  *       at "/user/{id}" for delete(DELETE) and getOne (GET)
  */
 @RestController
-@RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserRestController {
+@RequestMapping(value = MainRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class MainRestController {
 
     static final String REST_URL = "/meetings";
 
-   /* private UserService service;
+    private DepartService departServiceservice;
+    private MeetingService meetingService;
+    private EmployerService employerService;
 
     @Autowired
-    public UserRestController(UserService service) { this.service = service; }
+
+    public MainRestController(DepartService departServiceservice, MeetingService meetingService, EmployerService employerService) {
+        this.departServiceservice = departServiceservice;
+        this.meetingService = meetingService;
+        this.employerService = employerService;
+    }
+
+    @GetMapping
+    public List<Meeting> getAll() {
+        return meetingService.getAll();
+    }
+
 
     //Resolve some problems with auto parsing Date and empty id in new User
     @InitBinder
     protected void initBuilder(WebDataBinder binder){
-        binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+        binder.registerCustomEditor(LocalDateTime.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException{
-                setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                setValue(LocalDateTime.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             }
 
             @Override
             public String getAsText() throws IllegalArgumentException {
-                return DateTimeFormatter.ofPattern("yyyy-MM-dd").format((LocalDate) getValue());
+                return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format((LocalDateTime) getValue());
             }
         });
         binder.registerCustomEditor(Integer.class, new PropertyEditorSupport(){
@@ -53,23 +66,19 @@ public class UserRestController {
                 try {
                     setValue(Integer.parseInt(text));
                 } catch (NumberFormatException e) {
-                    // = NEW USER! Don't need to handle this exception
+                    // = NEW Meeting! Don't need to handle this exception
                 }
             }
         });
     }
 
-    @GetMapping
-    public List<User> getAll() {
-        return service.getAll();
+    @GetMapping("depart/{id}")
+    public List<Meeting> filterByDepart (@PathVariable("id") int id){
+
+        return meetingService.filterByDepart(id);
     }
 
-    @GetMapping("/{id}")
-    public User get(@PathVariable("id") int id){
-        return service.get(id);
-    }
-
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id){
         service.delete(id);
     }

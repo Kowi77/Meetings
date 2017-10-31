@@ -9,14 +9,14 @@ DROP TABLE IF EXISTS departs;
 CREATE TABLE departs
 (
   id    INTEGER PRIMARY KEY AUTO_INCREMENT,
-  Name  VARCHAR(60) NOT NULL
+  name  VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE employers
 (
   id          INTEGER PRIMARY KEY AUTO_INCREMENT,
-  fullName   VARCHAR(60) NOT NULL,
-  birthDay   TIMESTAMP NOT NULL,
+  fullname   VARCHAR(60) NOT NULL,
+  birthday   TIMESTAMP NOT NULL,
   depart_id  INTEGER NOT NULL,
   CONSTRAINT fk_emp_dep FOREIGN KEY (depart_id) REFERENCES departs(id)
 );
@@ -35,8 +35,7 @@ CREATE TABLE members
   id             INTEGER PRIMARY KEY AUTO_INCREMENT,
   meet_id       INTEGER NOT NULL,
   employer_id   INTEGER NOT NULL,
-  CONSTRAINT fk_memb_meet FOREIGN KEY (meet_id) REFERENCES meets(id),
-  CONSTRAINT fk_memb_emp FOREIGN KEY (employer_id) REFERENCES employers(id)
+  CONSTRAINT fk_memb_meet FOREIGN KEY (meet_id) REFERENCES meets(id) ON DELETE CASCADE
 );
 
 

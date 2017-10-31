@@ -1,4 +1,4 @@
-var ajaxUrl = "user/";
+var ajaxUrl = "meetings/";
 var datatableApi;
 var form=$('#detailsForm');
 
@@ -60,6 +60,18 @@ function updateTable() {
     });
 }
 
+function filterByDepart(id) {
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "depart/" + id,
+        success: updateTableByData
+    });
+}
+
+function updateTableByData(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
 //Datatable
 
 $(function () {
@@ -71,22 +83,13 @@ $(function () {
         "paging": false,
         "info": false,
         "columns": [
-            {"data": "firstName"},
-            {"data": "lastName"},
-            {"data": "birthday"},
-            {"data": "login"},
-            {"data": "password"},
-            {"data": "info",
+            {"data": "date",
                 "sHeightMatch": "auto"},
-            {"data": "adress"},
-            {"orderable": false,
-                "defaultContent": "",
-                "render": renderEditBtn
-            },
-            {"orderable": false,
-                "defaultContent": "",
-                "render": renderDeleteBtn
-            }
+            {"data": "theme",
+                "render": function (data, type, row) {return "<a href=meeting/" + row.id + "/>" + data + ""}},
+            {"data": "employerId"},
+            {"data": "employerId"},
+            {"data": "employerId"}
         ],
         "order": [[0,"asc"]],
         "initComplete": errorHandling
