@@ -51,6 +51,11 @@ INSERT INTO members (meet_id, employer_id) VALUES
   (6, 3),
   (6, 2);
 
+/*SELECT meets.date, meets.theme, employers.fullName, departs.name, COUNT(members.employer_id) FROM meets
+  LEFT JOIN employers ON meets.employer_id = employers.id
+  LEFT JOIN departs ON employers.depart_id = departs.id
+  LEFT JOIN members ON meets.id = members.meet_id
+  GROUP BY meets.theme;*/
 
 
 

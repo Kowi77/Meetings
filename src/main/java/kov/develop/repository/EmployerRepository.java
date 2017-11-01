@@ -22,6 +22,6 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
     @Override
     Employer findOne(Integer id);
 
-    Employer findByDepartIdEquals(Integer id);
+    List<Employer> findByDepartIdEquals(Integer id);
 
 }

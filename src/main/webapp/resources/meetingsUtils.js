@@ -68,6 +68,14 @@ function filterByDepart(id) {
     });
 }
 
+function filterByEmployer(id) {
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "employer/" + id,
+        success: updateTableByData
+    });
+}
+
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
 }

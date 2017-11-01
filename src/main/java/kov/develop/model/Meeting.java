@@ -18,8 +18,14 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode( exclude = "id")
+@NamedNativeQueries({ @NamedNativeQuery(name = Meeting.TEST, query = "SELECT Meets.id, Meets.date, Meets.theme, Employers.fullName AS employer, Departs.name AS depart, COUNT(Members.employer_id) AS quantity FROM Meets" +
+        " LEFT JOIN Employers ON Meets.employer_id = Employers.id" +
+        " LEFT JOIN Departs ON Employers.depart_id = Departs.id" +
+        " LEFT JOIN Members ON Meets.id = Members.meet_id" +
+        " GROUP BY Meets.theme", resultClass = MeetingForUi.class) })
 public class Meeting implements Serializable {
 
+    public static final String TEST="Meeting.test";
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

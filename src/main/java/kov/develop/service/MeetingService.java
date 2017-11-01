@@ -1,5 +1,6 @@
 package kov.develop.service;
 
+import kov.develop.model.MeetingForUi;
 import kov.develop.model.Meeting;
 import kov.develop.repository.EmployerRepository;
 import kov.develop.repository.MeetingRepository;
@@ -8,7 +9,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MeetingService {
@@ -29,6 +33,10 @@ public class MeetingService {
         return repository.findAll();
     }
 
+    /*public List<Meeting> getAllTest (){
+        return repository.findAllTest();
+    }*/
+
     public Meeting get (int id){
         log.info("Get Meeting with {} id ", id);
         return repository.findOne(id);
@@ -47,7 +55,15 @@ public class MeetingService {
     }
 
     public List<Meeting> filterByDepart(int id){
-        int employerId = employerRepository.findByDepartIdEquals(id).getId();
-        return repository.findAllByEmployerIdEquals(employerId);
+        Set<Integer> set = employerRepository.findByDepartIdEquals(id).stream().map(e -> e.getId()).collect(Collectors.toSet());
+        //TODO исправить, добавить поле depart_id в meeting
+        List<Meeting> list = new ArrayList<>();
+        set.forEach(e -> list.addAll(repository.findAllByEmployerIdEquals(e)));
+        return list;
     }
+    //Возвращаем только по собраниям, где работник ДОКЛАДЧИК, не участник
+    public List<Meeting> filterByEmployer(int id){
+        return repository.findAllByEmployerIdEquals(id);
+    }
+
 }

@@ -1,8 +1,10 @@
 package kov.develop.repository;
 
+import kov.develop.model.MeetingForUi;
 import kov.develop.model.Meeting;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +25,20 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 
     List<Meeting> findAllByEmployerIdEquals(int id);
 
+   /* @Query (value = "SELECT m.id, m.date, m.theme, m.employerId FROM Meeting m")
+    List<Meeting> findAllTest();*/
+
+    /*    @Query (value = "SELECT Meeting.id, Meeting.date, Meeting.theme, Employer.fullName, Depart.name, COUNT(Members.employer_id) FROM Meeting" +
+            " LEFT JOIN Employer ON Meeting.employer_id = Employer.id" +
+            " LEFT JOIN Depart ON Employer.depart_id = Depart.id" +
+            " LEFT JOIN Members ON Meeting.id = Members.meet_id" +
+            " GROUP BY Meeting.theme")*/
+    //List<MeetingForUi> getAllMeetingForUi();
+
+
+
     //TODO
     //Поиск по дате.времени
-    //Поиск по докладчику
     //Удаление
 
 

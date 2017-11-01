@@ -1,18 +1,19 @@
 package kov.develop.controller;
 
 
+import kov.develop.model.MeetingForUi;
 import kov.develop.model.Meeting;
+import kov.develop.repository.Temp;
 import kov.develop.service.DepartService;
 import kov.develop.service.EmployerService;
 import kov.develop.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.TypedQuery;
 import java.beans.PropertyEditorSupport;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -31,6 +32,8 @@ public class MainRestController {
     private DepartService departServiceservice;
     private MeetingService meetingService;
     private EmployerService employerService;
+    @Autowired
+    private Temp temp;
 
     @Autowired
 
@@ -42,6 +45,8 @@ public class MainRestController {
 
     @GetMapping
     public List<Meeting> getAll() {
+        TypedQuery<MeetingForUi> query = temp.getBetween();
+        System.out.println(query.getResultList().toString());
         return meetingService.getAll();
     }
 
@@ -77,6 +82,13 @@ public class MainRestController {
 
         return meetingService.filterByDepart(id);
     }
+
+    @GetMapping("employer/{id}")
+    public List<Meeting> filterByEmployer (@PathVariable("id") int id){
+        return meetingService.filterByEmployer(id);
+    }
+
+
 
     /*@DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id){

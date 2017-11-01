@@ -17,36 +17,28 @@
 <body>
 <div class="container-fluid">
     <!--Data filters-->
-        <div class="col-sm-7">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form class="form-horizontal" id="filter">
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="startDate">Время проведения с: </label>
-
-                            <div class="col-sm-3">
-                                <input class="form-control" type="datetime-local" name="startDate" id="startDate">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="endDate"> по: </label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="datetime-local" name="endDate" id="endDate">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="panel-footer text-right">
-                    <a class="btn btn-danger" type="button" onclick="clearFilter()">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
-                    </a>
-                    <a class="btn btn-primary" type="button" onclick="updateTable()">
-                        <span class="glyphicon glyphicon-filter" aria-hidden="true"> Применить фильтр</span>
-                    </a>
-                </div>
+    <div class="col-sm-8">
+        <form class="form-horizontal" id="filter">
+            <%-- <div class="form-group">--%>
+            <label class="control-label col-sm-2" for="startDate">Время проведения с: </label>
+            <div class="col-sm-2">
+                <input class="form-control" type="datetime" name="startDate" id="startDate">
             </div>
+            <label class="control-label col-sm-2" for="endDate"> по: </label>
+            <div class="col-sm-2">
+                <input class="form-control" type="datetime" name="endDate" id="endDate">
+            </div>
+        </form>
+        <div class="panel-footer text-right">
+            <a class="btn btn-danger" type="button" onclick="clearFilter()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
+            </a>
+            <a class="btn btn-primary" type="button" onclick="updateTable()">
+                <span class="glyphicon glyphicon-filter" aria-hidden="true"> Применить фильтр</span>
+            </a>
         </div>
-        <div class="col-sm-5">
+    </div>
+        <div class="col-sm-4">
             <div class="dropdown" id="departFilter">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Выбор подразделения
                     <span class="caret"></span></button>
@@ -61,7 +53,7 @@
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <c:forEach var="emp" items="${employers}">
-                        <li><a onclick="filterByEployer(${emp.id})">${emp.fullname}</a></li>
+                        <li><a onclick="filterByEmployer(${emp.id})">${emp.fullname}</a></li>
                     </c:forEach>
                 </ul>
             </div>
