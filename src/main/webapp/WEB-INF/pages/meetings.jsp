@@ -22,21 +22,21 @@
             <%-- <div class="form-group">--%>
             <label class="control-label col-sm-2" for="startDate">Время проведения с: </label>
             <div class="col-sm-2">
-                <input class="form-control" type="datetime" name="startDate" id="startDate">
+                <input class="form-control" type="date" name="startDate" id="startDate">
             </div>
             <label class="control-label col-sm-2" for="endDate"> по: </label>
             <div class="col-sm-2">
-                <input class="form-control" type="datetime" name="endDate" id="endDate">
+                <input class="form-control" type="date" name="endDate" id="endDate">
             </div>
         </form>
-        <div class="panel-footer text-right">
+        <%--<div class="panel-footer text-right">--%>
             <a class="btn btn-danger" type="button" onclick="clearFilter()">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
             </a>
             <a class="btn btn-primary" type="button" onclick="updateTable()">
                 <span class="glyphicon glyphicon-filter" aria-hidden="true"> Применить фильтр</span>
             </a>
-        </div>
+        <%--</div>--%>
     </div>
         <div class="col-sm-4">
             <div class="dropdown" id="departFilter">

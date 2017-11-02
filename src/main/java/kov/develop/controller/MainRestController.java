@@ -3,7 +3,7 @@ package kov.develop.controller;
 
 import kov.develop.model.MeetingForUi;
 import kov.develop.model.Meeting;
-import kov.develop.repository.Temp;
+import kov.develop.repository.MeetingForUiRepository;
 import kov.develop.service.DepartService;
 import kov.develop.service.EmployerService;
 import kov.develop.service.MeetingService;
@@ -20,8 +20,8 @@ import java.util.List;
 
 /**
  * Main rest controller
- * Works at "/user" for getAll (GET) and save/create (POST)
- *       at "/user/{id}" for delete(DELETE) and getOne (GET)
+ * Works at "/meetings" for getAll (GET)
+ *       at "/depart/{id}"  at "/employer/{id}" for filter by
  */
 @RestController
 @RequestMapping(value = MainRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,11 +32,8 @@ public class MainRestController {
     private DepartService departServiceservice;
     private MeetingService meetingService;
     private EmployerService employerService;
-    @Autowired
-    private Temp temp;
 
     @Autowired
-
     public MainRestController(DepartService departServiceservice, MeetingService meetingService, EmployerService employerService) {
         this.departServiceservice = departServiceservice;
         this.meetingService = meetingService;
@@ -44,10 +41,8 @@ public class MainRestController {
     }
 
     @GetMapping
-    public List<Meeting> getAll() {
-        TypedQuery<MeetingForUi> query = temp.getBetween();
-        System.out.println(query.getResultList().toString());
-        return meetingService.getAll();
+    public List<MeetingForUi> getAll() {
+        return meetingService.getAllForUi();
     }
 
 

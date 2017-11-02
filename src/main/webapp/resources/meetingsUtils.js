@@ -95,9 +95,9 @@ $(function () {
                 "sHeightMatch": "auto"},
             {"data": "theme",
                 "render": function (data, type, row) {return "<a href=meeting/" + row.id + "/>" + data + ""}},
-            {"data": "employerId"},
-            {"data": "employerId"},
-            {"data": "employerId"}
+            {"data": "depart"},
+            {"data": "employer"},
+            {"data": "quantity"}
         ],
         "order": [[0,"asc"]],
         "initComplete": errorHandling

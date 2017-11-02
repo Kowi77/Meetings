@@ -25,6 +25,13 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 
     List<Meeting> findAllByEmployerIdEquals(int id);
 
+  /*  @Query (value = "SELECT new MeetingForUi(Meets.id, Meets.date, Meets.theme, Employers.fullName AS employer, Departs.name AS depart, COUNT(Members.employer_id) AS quantity) FROM Meets" +
+            " LEFT JOIN Employers ON Meets.employer_id = Employers.id" +
+            " LEFT JOIN Departs ON Employers.depart_id = Departs.id" +
+            " LEFT JOIN Members ON Meets.id = Members.meet_id" +
+            " GROUP BY Meets.theme", nativeQuery = true)
+    List<MeetingForUi> getAllForUi();*/
+
    /* @Query (value = "SELECT m.id, m.date, m.theme, m.employerId FROM Meeting m")
     List<Meeting> findAllTest();*/
 
