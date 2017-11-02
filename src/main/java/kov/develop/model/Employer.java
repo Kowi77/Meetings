@@ -1,6 +1,7 @@
 package kov.develop.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -22,19 +23,23 @@ public class Employer implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty()
     private Integer id;
 
     @Column(name = "fullname")
     @NotBlank
     @Size(max = 60)
+    @JsonProperty("fullname")
     private String fullname;
 
     @Column(name = "birthday")
     @NotNull
+    @JsonProperty("birthday")
     private LocalDate birthday;
 
     @Column(name = "depart_id")
     @NotNull
+    @JsonProperty("departId")
     //@OneToOne (fetch = FetchType.LAZY, mappedBy = "employer")
     private Integer departId;
 

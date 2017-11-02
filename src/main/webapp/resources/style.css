@@ -18,3 +18,18 @@
 li > a {
     cursor: pointer;
 }
+
+
+
+#my-drop-down-menu li:hover ul.child{
+    left:auto; /* (!) */
+}
+
+#my-drop-down-menu li a.link{
+    display:block;
+    padding:5px;
+}
+
+#my-drop-down-menu li:hover a.link{
+    background: #463935;
+}

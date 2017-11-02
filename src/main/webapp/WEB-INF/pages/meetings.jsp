@@ -16,49 +16,47 @@
 </head>
 <body>
 <div class="container-fluid">
-    <!--Data filters-->
     <div class="col-sm-8">
-        <form class="form-horizontal" id="filter">
+        <form class="form-horizontal" id="dateFilter">
             <%-- <div class="form-group">--%>
             <label class="control-label col-sm-2" for="startDate">Время проведения с: </label>
             <div class="col-sm-2">
-                <input class="form-control" type="date" name="startDate" id="startDate">
+                <input class="form-control" type="datetime-local" name="startDate" id="startDate">
             </div>
             <label class="control-label col-sm-2" for="endDate"> по: </label>
             <div class="col-sm-2">
-                <input class="form-control" type="date" name="endDate" id="endDate">
+                <input class="form-control" type="datetime-local" name="endDate" id="endDate">
             </div>
         </form>
-        <%--<div class="panel-footer text-right">--%>
-            <a class="btn btn-danger" type="button" onclick="clearFilter()">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
-            </a>
-            <a class="btn btn-primary" type="button" onclick="updateTable()">
-                <span class="glyphicon glyphicon-filter" aria-hidden="true"> Применить фильтр</span>
-            </a>
-        <%--</div>--%>
+        <a class="btn btn-danger" type="button" onclick="clearFilter()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
+        </a>
+        <a class="btn btn-primary" type="button" onclick="updateTable()">
+            <span class="glyphicon glyphicon-filter" aria-hidden="true"> Применить фильтр</span>
+        </a>
     </div>
-        <div class="col-sm-4">
-            <div class="dropdown" id="departFilter">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Выбор подразделения
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <c:forEach var="depart" items="${departs}">
-                        <li><a onclick="filterByDepart(${depart.id})">${depart.name}</a></li>
-                    </c:forEach>
-                </ul>
-            </div>
-            <div class="dropdown" id="eployerFilter">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">С участием
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <c:forEach var="emp" items="${employers}">
-                        <li><a onclick="filterByEmployer(${emp.id})">${emp.fullname}</a></li>
-                    </c:forEach>
-                </ul>
-            </div>
+    <div class="col-sm-4">
+        <div class="dropdown" id="departFilter">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Выбор подразделения
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <c:forEach var="depart" items="${departs}">
+                    <li><a onclick="filterByDepart(${depart.id})">${depart.name}</a></li>
+                </c:forEach>
+            </ul>
         </div>
+        <div class="dropdown" id="eployerFilter">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">С участием
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu"
+            <c:forEach var="emp" items="${employers}">
+                <li><a onclick="filterByEmployer(${emp.id})">${emp.fullname}</a></li>
+            </c:forEach>
+            </ul>
+        </div>
+    </div>
 </div>
+
 
 <div class="container-fluid">
         <h7>Список проведенных совещаний</h7>
@@ -80,79 +78,6 @@
     <span class="glyphicon glyphicon-plus" aria-hidden="true">  ДОБАВИТЬ</span>
 </a>
 
-<%--Form for add/edit user--%>
-<div class="modal fade" id="editRow">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle"></h2>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="detailsForm">
-                    <input type="hidden" id="id" name="id">
-
-                    <div class="form-group">
-                        <label for="firstName" class="control-label col-xs-3">Имя</label>
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="firstName" name="firstName"
-                                   placeholder="Имя">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName" class="control-label col-xs-3">Фамилия</label>
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="lastName" name="lastName"
-                                   placeholder="Фамилия">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="birthday" class="control-label col-xs-3">День рождения</label>
-                        <div class="col-xs-9">
-                            <input type="date" class="form-control" id="birthday" name="birthday" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="login" class="control-label col-xs-3">Логин</label>
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="login" name="login"
-                                   placeholder="Логин (4-10) символов">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="control-label col-xs-3">Пароль</label>
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="password" name="password"
-                                   placeholder="Пароль (4-10) символов">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="info" class="control-label col-xs-3">Информация</label>
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="info" name="info"
-                                   placeholder="Информация">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="adress" class="control-label col-xs-3">Адрес</label>
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="adress" name="adress"
-                                   placeholder="Адрес">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="save()">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<%--Info message--%>
 <div id="success" style="display: none" class="alert alert-success"></div>
 <div id="error" style="display: none" class="alert alert-danger"></div>
 </body>

@@ -30,6 +30,7 @@ public class RootController {
         this.employerService = employerService;
     }
 
+    //Базовая страница приложения
     @GetMapping("/")
     public String root(Model model) {
         model.addAttribute("employers", employerService.getAll());
@@ -37,10 +38,14 @@ public class RootController {
         return "meetings";
     }
 
+    //Переход на форму редактирования
     @GetMapping("/meeting/{id}")
     public String form(@PathVariable ("id") int id, Model model){
         Meeting meeting = (id == 0 ? new Meeting() : meetingService.get(id));
-            model.addAttribute("meeting", meeting);
+        model.addAttribute("meeting", meeting);
+        model.addAttribute("departs", departService.getAll());
+        model.addAttribute("allEmployers", employerService.getAll());
+       // model.addAttribute("thisEmployers", )
         return "meetingForm";
     }
 
