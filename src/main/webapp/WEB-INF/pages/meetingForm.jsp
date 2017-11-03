@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Редактирование данных совещания</title>
@@ -26,19 +27,18 @@
     </div>
     <div class="form-group">
         <label for="date" class="control-label col-xs-3">Время проведения</label>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
             <input type="datetime-local" class="form-control" id="date" name="date" value="${meeting.date}">
         </div>
     </div>
 
     <div class="form-group">
         <label for="depart" class="control-label col-xs-3">Подразделение</label>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <div class="select-and-input">
-                <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value">
-                    <option value="111">222</option>
+                <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value"<option value="111">222</option>
                     <c:forEach var="dep" items="${departs}">
-                        <option value="${dep.name}">${dep.name}22222</option>
+                        <option value="${dep.name}">${dep.name}</option>
                     </c:forEach>
                 </select>
                 <input type="text" id="depart" name="depart" value=${meeting.employerId}>
@@ -48,7 +48,7 @@
 
     <div class="form-group">
         <label for="employer" class="control-label col-xs-3">Ответственный</label>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <div class="select-and-input">
                 <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value">
                     <c:forEach var="empl" items="${allEmployers}">
@@ -61,11 +61,11 @@
     </div>
     <div class="form-group">
         <label for="member" class="control-label col-xs-3">Участник</label>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <div class="select-and-input">
                 <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value">
-                    <c:forEach var="depart" items="${departs}">
-                        <option value="${depart.name}">${depart.name}</option>
+                    <c:forEach var="emp" items="${allEmployers}">
+                        <option value="${emp.fullname}">${emp.fullname}</option>
                     </c:forEach>
                 </select>
                 <input type="text" id="member" name="member" value=${meeting.employerId}>
@@ -79,17 +79,13 @@
         <table class="table table-striped display" id="dataEmployers">
             <thead>
             <tr>
-                <th hidden>Id</th>
                 <th>Имя</th>
                 <th>Дата рождения</th>
                 <th>Подразделение</th>
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <td>
-                <td hidden>
-            </td>
+            <tbody id="employersShedule">
             </tbody>
         </table>
     </div>

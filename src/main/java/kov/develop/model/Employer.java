@@ -40,7 +40,7 @@ public class Employer implements Serializable {
     @Column(name = "depart_id")
     @NotNull
     @JsonProperty("departId")
-    //@OneToOne (fetch = FetchType.LAZY, mappedBy = "employer")
+    //@OneToOne (fetch = FetchType.EAGER, mappedBy = "employer")
     private Integer departId;
 
     @Override

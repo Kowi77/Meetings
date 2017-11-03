@@ -3,7 +3,7 @@ var datatableApi;
 var form=$('#meetingForm');
 
 //Таблица с участниками совещания
-$(function () {
+/*$(function () {
     datatableApi = $("#dataEmployers").DataTable({
         "ajax": {
             "url": ajaxUrl + "employers/",
@@ -27,7 +27,11 @@ $(function () {
         "order": [[0,"asc"]],
         "initComplete": errorHandling
     });
-});
+});*/
+
+$(function () {
+    document.getElementById("#employersShedule").innerHTML("TTTTTTTTTTTTT")
+})
 
 function renderDeleteBtn(data, type, row) {
         return "<a onclick='deleteRow(" + row.id + ");'>" +
