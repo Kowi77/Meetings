@@ -57,6 +57,9 @@ INSERT INTO members (meet_id, employer_id) VALUES
   LEFT JOIN members ON meets.id = members.meet_id
   GROUP BY meets.theme;*/
 
-
+/*SELECT m.employer_id, e.fullname, e.birthday, d.name FROM members m
+LEFT JOIN employers e ON m.employer_id = e.id
+LEFT JOIN departs d ON e.depart_id = d.id
+WHERE m.meet_id=4;*/
 
 

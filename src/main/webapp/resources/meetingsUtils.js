@@ -47,6 +47,8 @@ function deleteRow(id) {
     });
 }
 
+
+
 //Update datatable
 
 function updateTable() {

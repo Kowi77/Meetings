@@ -35,9 +35,9 @@ public class FormController {
         this.employerService = employerService;
     }
 
-    @GetMapping("/employers")
-    public List<Employer> getAll() {
-        return employerService.getAll();
+    @GetMapping("/employersByDepart/{departId}")
+    public List<Employer> getAllByDepart(@PathVariable("departId") int departId) {
+        return employerService.getAllByDepart(departId);
     }
 
     @DeleteMapping("/employer/{id}")
@@ -51,8 +51,10 @@ public class FormController {
         @RequestParam(value = "theme") String theme,
         @RequestParam(value = "date") String dateTime,
         @RequestParam(value = "depart") String depart,
-        @RequestParam(value = "employer") String employer,
-        @RequestParam(value = "qwerty") String qwerty) {
-        System.out.println(theme + dateTime + depart + employer);
+        @RequestParam(value = "selectDepart") String selectDepart,
+        @RequestParam(value = "member") String member,
+        @RequestParam(value = "employer") String employer)
+    {
+        System.out.println(theme + dateTime + depart + selectDepart + member + employer);
     }
 }

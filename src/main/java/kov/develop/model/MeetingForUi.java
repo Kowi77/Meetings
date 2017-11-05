@@ -14,14 +14,15 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@NamedNativeQueries({ @NamedNativeQuery(name = MeetingForUi.GET_ALL, query = "SELECT Meets.id, Meets.date, Meets.theme, Employers.fullName AS employer, Departs.name AS depart, COUNT(Members.employer_id) AS quantity FROM Meets" +
+@NamedNativeQuery(name = MeetingForUi.GET_ALL, query = "SELECT Meets.id, Meets.date, Meets.theme, Employers.fullName AS employer, Departs.name AS depart, COUNT(Members.employer_id) AS quantity FROM Meets" +
         " LEFT JOIN Employers ON Meets.employer_id = Employers.id" +
         " LEFT JOIN Departs ON Employers.depart_id = Departs.id" +
         " LEFT JOIN Members ON Meets.id = Members.meet_id" +
-        " GROUP BY Meets.theme", resultClass = MeetingForUi.class) })
+        " GROUP BY Meets.theme", resultClass = MeetingForUi.class)
 public class MeetingForUi {
 
     public static final String GET_ALL = "MeetingForUi.getAll";
+
     @Id
     private Integer id;
     @Column (name = "date")

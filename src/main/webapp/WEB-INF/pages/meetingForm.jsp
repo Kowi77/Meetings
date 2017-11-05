@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Редактирование данных совещания</title>
+    <title>Данные о совещании</title>
     <base href="${pageContext.request.contextPath}/"/>
     <link rel="stylesheet" href="resources/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
@@ -33,61 +34,71 @@
     </div>
 
     <div class="form-group">
-        <label for="depart" class="control-label col-xs-3">Подразделение</label>
+        <label for="selectDepart" class="control-label col-xs-3">Подразделение</label>
         <div class="col-xs-6">
             <div class="select-and-input">
-                <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value"<option value="111">222</option>
+                <input type="text" id="depart" name="depart" value="${currentDepartId}">
+                <select name="selectDepart" id="selectDepart">
                     <c:forEach var="dep" items="${departs}">
-                        <option value="${dep.name}">${dep.name}</option>
+                        <option value="${dep.id}">${dep.name}</option>");
                     </c:forEach>
                 </select>
-                <input type="text" id="depart" name="depart" value=${meeting.employerId}>
             </div>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="employer" class="control-label col-xs-3">Ответственный</label>
+        <label for="selectEmployer" class="control-label col-xs-3">Ответственный</label>
         <div class="col-xs-6">
             <div class="select-and-input">
-                <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value">
-                    <c:forEach var="empl" items="${allEmployers}">
-                        <option value="${empl.fullname}">${empl.fullname}</option>
-                    </c:forEach>
-                </select>
                 <input type="text" id="employer" name="employer" value=${meeting.employerId}>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="member" class="control-label col-xs-3">Участник</label>
-        <div class="col-xs-6">
-            <div class="select-and-input">
-                <select name="selectName" onchange="parentNode.getElementsByTagName('input')[0].value=value">
-                    <c:forEach var="emp" items="${allEmployers}">
-                        <option value="${emp.fullname}">${emp.fullname}</option>
-                    </c:forEach>
+                <select name="selectEmployer" id="selectEmployer" onchange="parentNode.getElementsByTagName('input')[0].value=value">
                 </select>
-                <input type="text" id="member" name="member" value=${meeting.employerId}>
             </div>
         </div>
     </div>
-
 
     <div class="container-fluid">
         <h4>Состав участников</h4>
-        <table class="table table-striped display" id="dataEmployers">
+        <table class="table table-striped display" id="datatableMembers">
             <thead>
             <tr>
+                <th>ID</th>
                 <th>Имя</th>
                 <th>Дата рождения</th>
                 <th>Подразделение</th>
-                <th></th>
             </tr>
             </thead>
-            <tbody id="employersShedule">
+            <tbody>
+            <c:forEach var="emp" items="${employersOfMeeting}">
+                <tr>
+                    <td>${emp.id}</td>
+                    <td>${emp.fullname}</td>
+                    <td>${emp.birthday}</td>
+                    <td>${emp.departName}</td>
+                </tr>
+            </c:forEach>
+
             </tbody>
         </table>
+    </div>
+
+    <div class="form-group">
+        <label for="selectMember" class="control-label col-xs-3">Участник</label>
+        <div class="col-xs-6">
+            <div class="select-and-input">
+                <form id="memberForm">
+                    <select name="selectMember" id="selectMember">
+                        <c:forEach var="emp" items="${allEmployers}">
+                            <option value="${emp.id}">${emp.fullname}</option>
+                        </c:forEach>
+                    </select>
+                    <a class="btn btn-primary" type="button" onclick="addMember()">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"> Добавить участника</span>
+                    </a>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div class="col-xs-offset-3 col-xs-9">

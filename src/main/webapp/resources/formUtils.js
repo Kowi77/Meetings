@@ -1,10 +1,13 @@
 var ajaxUrl = "meeting/";
 var datatableApi;
 var form=$('#meetingForm');
+var memberForm=$('#memberForm');
+var employers;
+var firstId;
 
 //Таблица с участниками совещания
 /*$(function () {
-    datatableApi = $("#dataEmployers").DataTable({
+    datatableApi = $("#datatableMembers").DataTable({
         "ajax": {
             "url": ajaxUrl + "employers/",
             "dataSrc": ""
@@ -29,9 +32,45 @@ var form=$('#meetingForm');
     });
 });*/
 
-$(function () {
-    document.getElementById("#employersShedule").innerHTML("TTTTTTTTTTTTT")
+// Значение по умолчанию поля департамент
+$(document).ready(function() {
+    $("option[value=" + $("#depart").val() + "]").prop("selected", true);
+    departId = 0;
+    refreshSelectEmployer($("#depart").val());
 })
+
+// Обработчик выбора департамента
+$("#selectDepart").on('change', function () {
+    departId = $('#selectDepart :selected').val()
+    $("#depart").val(departId);
+    refreshSelectEmployer(departId);
+
+});
+
+//Добавление участника
+function addMember () {
+    console.log($("#selectMember :selected").val())
+};
+
+
+//Обновляем список возможных ответственных
+function refreshSelectEmployer(departId) {
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "employersByDepart/" + departId,
+        dataType: 'json',
+        success: function (data) {
+            if (firstId != 0) {
+                firstId = data[0].id;
+                $("#employer").val(firstId);
+            }
+            $("#selectEmployer").empty();
+            data.forEach(function (emp) {
+                $("#selectEmployer").append("<option value=" + emp.id + ">" + emp.fullname) + "</option>"
+            });
+        }
+    });
+}
 
 function renderDeleteBtn(data, type, row) {
         return "<a onclick='deleteRow(" + row.id + ");'>" +
@@ -48,7 +87,7 @@ function deleteRow(id) {
         }
     });
 }
-function updateTable() {
+/*function updateTable() {
     $.ajax({
         type: "GET",
         url: ajaxUrl + "employers/",
@@ -61,7 +100,7 @@ function updateTable() {
 
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
-}
+}*/
 
 function errorHandling() {
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
