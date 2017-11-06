@@ -72,4 +72,9 @@ public class MeetingService {
         return meetingForUiRepository.getFilteredByDate(start, end);
     }
 
+    public List<MeetingForUi> getFilteredByMember(int memId){
+        log.info("Get Meetings where employer with {} id is member", memId);
+        return meetingForUiRepository.getFilteredByMember(memId);
+    }
+
 }

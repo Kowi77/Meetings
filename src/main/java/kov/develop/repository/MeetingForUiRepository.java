@@ -35,4 +35,9 @@ public class MeetingForUiRepository {
                 setParameter("start", start).setParameter("end", end).getResultList();
     }
 
+    public List<MeetingForUi> getFilteredByMember (int memId) {
+        return em.createNamedQuery(MeetingForUi.GET_FILTERED_BY_MEMBER, MeetingForUi.class).
+                setParameter("memId", memId).getResultList();
+    }
+
 }

@@ -65,9 +65,9 @@ WHERE m.meet_id=4;*/
 /*SELECT e.id, e.fullname, e.birthday, d.name AS departName FROM employers e
 LEFT JOIN departs d ON e.depart_id = d.id;*/
 
-/*SELECT Meets.id, Meets.date, Meets.theme, e.fullName AS employer, d.name AS depart, COUNT(m.employer_id) AS quantity FROM Meets
+SELECT Meets.id, Meets.date, Meets.theme, e.fullName AS employer, d.name AS depart, COUNT(m.employer_id) AS quantity FROM Meets
   LEFT JOIN Employers e ON Meets.employer_id = e.id
   LEFT JOIN Departs d ON e.depart_id = d.id
-  LEFT JOIN Members m ON Meets.id = m.meet_id WHERE Meets.date BETWEEN '2017-10-05 12:12' AND '9999-12-31 23:59:59' GROUP BY Meets.theme;*/
+  LEFT JOIN Members m ON Meets.id = m.meet_id WHERE Meets.id = ANY (SELECT m.meet_id FROM members m WHERE m.employer_id = 2) GROUP BY Meets.theme;
 
 

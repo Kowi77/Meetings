@@ -48,11 +48,21 @@
             </div>
             <div class="dropdown" id="eployerFilter">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-filter" aria-hidden="true">С участием</span>
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true">Ответственный</span>
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu"
                 <c:forEach var="emp" items="${employers}">
                     <li><a onclick="filterByEmployer(${emp.id})">${emp.fullname}</a></li>
+                </c:forEach>
+                </ul>
+            </div>
+            <div class="dropdown" id="memberFilter">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true">С участием</span>
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu"
+                <c:forEach var="mem" items="${employers}">
+                    <li><a onclick="filterByMember(${mem.id})">${mem.fullname}</a></li>
                 </c:forEach>
                 </ul>
             </div>

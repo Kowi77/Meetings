@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
     @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_DEPART, query = MeetingForUi.QUERY + " WHERE e.depart_id=:departId GROUP BY Meets.theme", resultClass = MeetingForUi.class),
     @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_EMPLOYER, query = MeetingForUi.QUERY + " WHERE e.id=:empId GROUP BY Meets.theme", resultClass = MeetingForUi.class),
     @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_DATE, query = MeetingForUi.QUERY + " WHERE Meets.date BETWEEN :start AND :end GROUP BY Meets.theme", resultClass = MeetingForUi.class),
+    @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_MEMBER, query = MeetingForUi.QUERY + " WHERE Meets.id = ANY (SELECT m.meet_id FROM members m WHERE m.employer_id=:memId) GROUP BY Meets.theme", resultClass = MeetingForUi.class),
 })
 public class MeetingForUi {
 
@@ -26,6 +27,7 @@ public class MeetingForUi {
     public static final String GET_FILTERED_BY_DEPART = "MeetingForUi.getFilteredByDepart";
     public static final String GET_FILTERED_BY_EMPLOYER = "MeetingForUi.getFilteredByEmployer";
     public static final String GET_FILTERED_BY_DATE = "MeetingForUi.getFilteredByDate";
+    public static final String GET_FILTERED_BY_MEMBER = "MeetingForUi.getFilteredByMember";
     public static final String QUERY = "SELECT Meets.id, Meets.date, Meets.theme, e.fullName AS employer, d.name AS depart, COUNT(m.employer_id) AS quantity FROM Meets" +
             " LEFT JOIN Employers e ON Meets.employer_id = e.id" +
             " LEFT JOIN Departs d ON e.depart_id = d.id" +

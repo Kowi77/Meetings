@@ -90,6 +90,14 @@ function filterByEmployer(id) {
     });
 }
 
+function filterByMember(id) {
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "member/" + id,
+        success: updateTableByData
+    });
+}
+
 function filterByDate() {
     $.ajax({
         type: "POST",

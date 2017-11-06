@@ -41,6 +41,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         final ObjectMapper objectMapper = new ObjectMapper();
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.indentOutput(true).dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        //builder.indentOutput(true).dateFormat(new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss"));
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
         converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8, MediaType.TEXT_PLAIN, MediaType.TEXT_HTML));

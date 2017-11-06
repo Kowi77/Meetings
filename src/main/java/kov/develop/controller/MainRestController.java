@@ -49,33 +49,6 @@ public class MainRestController {
         return meetingService.getAllForUi();
     }
 
-
-    //Resolve some problems with auto parsing Date and empty id in new User
-   /* @InitBinder
-    protected void initBuilder(WebDataBinder binder){
-        binder.registerCustomEditor(LocalDateTime.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException{
-                setValue(LocalDateTime.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-            }
-
-            @Override
-            public String getAsText() throws IllegalArgumentException {
-                return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format((LocalDateTime) getValue());
-            }
-        });
-        binder.registerCustomEditor(Integer.class, new PropertyEditorSupport(){
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException{
-                try {
-                    setValue(Integer.parseInt(text));
-                } catch (NumberFormatException e) {
-                    // = NEW Meeting! Don't need to handle this exception
-                }
-            }
-        });
-    }*/
-
     @GetMapping("depart/{id}")
     public List<MeetingForUi> filterByDepart (@PathVariable("id") int id){
 
@@ -87,6 +60,10 @@ public class MainRestController {
        return meetingService.getFilteredByEmployer(id);
     }
 
+    @GetMapping("member/{id}")
+    public List<MeetingForUi> filterByMember (@PathVariable("id") int id){
+        return meetingService.getFilteredByMember(id);
+    }
 
     @PostMapping(value = "/date")
     public List<MeetingForUi> filterByDate(
@@ -96,24 +73,4 @@ public class MainRestController {
         LocalDateTime end = (endDate.equals("") ? MAX_DATE : LocalDateTime.parse(endDate));
         return meetingService.getFilteredByDate(start, end);
     }
-
-
-
-    /*@DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id){
-        service.delete(id);
-    }
-
-    //Data from request recieved via Spring binding and checeked by validators
-    // Return response with error's definition, if it's need
-    @PostMapping
-    public ResponseEntity<String> createOrUpdate(@Valid User user, BindingResult result) {
-        ResponseEntity<String> response;
-        if (result.hasErrors()){
-            response = getErrors(result);
-            return getErrors(result);}
-      service.save(user);
-      return new ResponseEntity<>(HttpStatus.OK);
-    }*/
-
 }
