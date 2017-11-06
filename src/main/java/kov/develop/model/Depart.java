@@ -1,5 +1,6 @@
 package kov.develop.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Table(name = "departs")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode( exclude = "id")
 public class Depart implements Serializable {
 

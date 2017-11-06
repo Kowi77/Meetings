@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Welcome page
+ * Welcome page and edit page
  */
 
 @Controller

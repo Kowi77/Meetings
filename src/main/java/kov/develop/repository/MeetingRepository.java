@@ -22,7 +22,4 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
     @Override
     @Transactional
     Meeting save(Meeting meeting);
-
-    List<Meeting> findAllByEmployerIdEquals(int id);
-
 }

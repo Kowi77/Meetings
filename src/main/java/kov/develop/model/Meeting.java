@@ -35,7 +35,6 @@ public class Meeting implements Serializable {
 
     @Column(name = "employer_id")
     @NotNull
-    //@OneToOne( fetch = FetchType.LAZY, mappedBy = "meeting")
     private Integer employerId;
 
     @CollectionTable(name = "members", joinColumns = @JoinColumn(name = "meet_id"))
@@ -43,14 +42,4 @@ public class Meeting implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)
     private Set<Integer> members;
-
-
-    @Override
-    public String toString() {
-        return "Meeting{" +
-                "theme='" + theme + '\'' +
-                ", date=" + date +
-                ", employerId=" + employerId +
-                '}';
-    }
 }

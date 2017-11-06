@@ -40,14 +40,6 @@ public class Employer implements Serializable {
     @Column(name = "depart_id")
     @NotNull
     @JsonProperty("departId")
-    //@OneToOne (fetch = FetchType.EAGER, mappedBy = "employer")
     private Integer departId;
 
-    @Override
-    public String toString() {
-        return "Employer{" +
-                "fullName='" + fullname + '\'' +
-                ", birthDay=" + birthday +
-                '}';
-    }
 }

@@ -98,7 +98,7 @@
     </button>
 </div>
 <div class="col-xs-offset-3 col-xs-9">
-    <form action="/">
+    <form action="${pageContext.request.contextPath}/">
         <button class="btn btn-primary" type="submit">
             <span class="glyphicon glyphicon-remove" aria-hidden="true">Не сохранять</span>
         </button>

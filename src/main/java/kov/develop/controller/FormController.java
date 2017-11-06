@@ -20,14 +20,11 @@ import java.util.Set;
  * Form rest controller
  * Works at "/meetings" for getAll (GET)
  *       at "/depart/{id}"  at "/employer/{id}" for filter by
+ *       at "/meeting" for save(create) meeting (POST)
  */
 @RestController
 @RequestMapping(value = FormController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FormController {
-
-    public static void main(String[] args) {
-        new Meeting(null, "ww", LocalDateTime.now(), 1, new HashSet<>());
-    }
 
     static final String REST_URL = "/meeting";
 
@@ -57,15 +54,8 @@ public class FormController {
         return employerService.get(empId);
     }
 
-
-
-    @DeleteMapping("/employer/{id}")
-    public void deleteEmployerFromMeeting (@PathVariable("id") int id){
-        System.out.println("DELETE!!!!");
-    }
-
     @PostMapping
-    public String saveMeeting (
+    public void saveMeeting (
         @RequestParam(value = "id", required = false) String id,
         @RequestParam(value = "theme") String theme,
         @RequestParam(value = "date") String dateTime,
@@ -76,8 +66,6 @@ public class FormController {
         @RequestParam(value = "mems[]") Set<Integer> members)
     {
        Integer parseId = (id == "" ? null : Integer.parseInt(id));
-       System.out.println("*" + parseId + "*" + theme + "*" + LocalDateTime.parse(dateTime)+ "*" + Integer.parseInt(employer)+ "*" +  members);
        meetingService.save(new Meeting(parseId, theme, LocalDateTime.parse(dateTime), Integer.parseInt(employer), members));
-       return "redirect:meetings";
     }
 }

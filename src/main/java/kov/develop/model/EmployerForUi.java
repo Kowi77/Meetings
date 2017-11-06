@@ -52,4 +52,26 @@ public class EmployerForUi {
         this.birthday = birthday;
         this.departName = departName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EmployerForUi that = (EmployerForUi) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (fullname != null ? !fullname.equals(that.fullname) : that.fullname != null) return false;
+        if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
+        return departName != null ? departName.equals(that.departName) : that.departName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (fullname != null ? fullname.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        result = 31 * result + (departName != null ? departName.hashCode() : 0);
+        return result;
+    }
 }

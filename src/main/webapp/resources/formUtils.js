@@ -119,7 +119,7 @@ function save() {
         },
         success: function () {
             successNoty("Данные о совещании сохранены!");
-            document.location.replace("/");
+            history.back();
         }
     });
 }

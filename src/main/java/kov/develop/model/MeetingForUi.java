@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
  * DTO object for Meeting
  */
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @NamedNativeQueries({
@@ -62,5 +64,41 @@ public class MeetingForUi {
         this.quantity = quantity;
     }
 
+    @Override
+    public String toString() {
+        return "MeetingForUi{" +
+                "id=" + id +
+                ", date=" + date +
+                ", theme='" + theme + '\'' +
+                ", depart='" + depart + '\'' +
+                ", employer='" + employer + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MeetingForUi that = (MeetingForUi) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        if (theme != null ? !theme.equals(that.theme) : that.theme != null) return false;
+        if (depart != null ? !depart.equals(that.depart) : that.depart != null) return false;
+        if (employer != null ? !employer.equals(that.employer) : that.employer != null) return false;
+        return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (theme != null ? theme.hashCode() : 0);
+        result = 31 * result + (depart != null ? depart.hashCode() : 0);
+        result = 31 * result + (employer != null ? employer.hashCode() : 0);
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        return result;
+    }
 }
