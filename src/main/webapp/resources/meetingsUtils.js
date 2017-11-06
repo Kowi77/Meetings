@@ -18,51 +18,6 @@ $.ajaxSetup({
     }
 });
 
-//Prepare for add/edit user
-
-function add() {
-    $("#modalTitle").html("Добавление пользователя");
-    $("#detailsForm").find(":input").val("");
-    $("#editRow").modal();
-}
-
-
-function updateRow(id) {
-    $("#modalTitle").html("Редактирование пользователя");
-    $.get(ajaxUrl + id, function (data) {
-        $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(value);
-        });
-        $('#editRow').modal();
-    });
-}
-
-//Save/delete user
-
-function save() {
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl,
-        data:form.serialize(),
-        success: function () {
-            $("#editRow").modal("hide");
-             updateTable();
-             successNoty("Пользователь сохранен");
-        }
-    });
-}
-
-function deleteRow(id) {
-    $.ajax({
-        url: ajaxUrl + id,
-        type: "DELETE",
-        success: function () {
-            updateTable();
-            successNoty("Пользователь удален");
-        }
-    });
-}
-
 function updateTable() {
     $.ajax({
         type: "GET",
@@ -133,20 +88,6 @@ $(function () {
         "initComplete": errorHandling
     });
 });
-
-//Edit and delete impl
-
-function renderEditBtn(data, type, row) {
-    if (type === "display") {
-        return "<a onclick='updateRow(" + row.id + ");'>" +
-            "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
-    }
-}
-
-function renderDeleteBtn(data, type, row) {
-        return "<a onclick='deleteRow(" + row.id + ");'>" +
-            "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
-}
 
 //User's noties creating
 

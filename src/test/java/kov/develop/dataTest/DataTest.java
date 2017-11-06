@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 public class DataTest {
 
@@ -35,27 +34,4 @@ public class DataTest {
 
     private static Integer[] a = {2, 4, 8};
     public static final Meeting SAVED_MEETING = new Meeting(1, "Огромное увеличение продаж", LocalDateTime.parse("2017-10-28T13:00:00"), 2, new HashSet<Integer>(Arrays.asList(a)));
-
-/*
-    INSERT INTO members (meet_id, employer_id) VALUES
-  (1, 5),
-          (1, 2),
-          (1, 8),
-          (1, 4),
-          (2, 5),
-          (2, 6),
-          (3, 7),
-          (3, 8),
-          (4, 1),
-          (4, 5),
-          (4, 3),
-          (5, 4),
-          (5, 5),
-          (5, 6),
-          (5, 7),
-          (6, 1),
-          (6, 3),
-          (6, 2);
-
-}*/
 }
