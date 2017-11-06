@@ -23,13 +23,13 @@
     <div class="form-group">
         <label for="theme" class="control-label col-xs-3">Тема совещания</label>
         <div class="col-xs-6">
-            <input type="text" class="form-control" id="theme" name="theme" value="${meeting.theme}">
+            <input type="text" class="form-control" id="theme" name="theme"  value="${meeting.theme}" required>
         </div>
     </div>
     <div class="form-group">
         <label for="date" class="control-label col-xs-3">Время проведения</label>
         <div class="col-xs-3">
-            <input type="datetime-local" class="form-control" id="date" name="date" value="${meeting.date}">
+            <input type="datetime-local" class="form-control" id="date" name="date"  value="${meeting.date}" required>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
         <label for="selectDepart" class="control-label col-xs-3">Подразделение</label>
         <div class="col-xs-6">
             <div class="select-and-input">
-                <input type="text" id="depart" name="depart" value="${currentDepartId}">
+                <input style="display: none" type="text" id="depart" name="depart" value="${currentDepartId}">
                 <select name="selectDepart" id="selectDepart">
                     <c:forEach var="dep" items="${departs}">
                         <option value="${dep.id}">${dep.name}</option>");
@@ -51,7 +51,7 @@
         <label for="selectEmployer" class="control-label col-xs-3">Ответственный</label>
         <div class="col-xs-6">
             <div class="select-and-input">
-                <input type="text" id="employer" name="employer" value=${meeting.employerId}>
+                <input style="display: none" type="text" id="employer" name="employer" value=${meeting.employerId}>
                 <select name="selectEmployer" id="selectEmployer" onchange="parentNode.getElementsByTagName('input')[0].value=value">
                 </select>
             </div>
@@ -63,22 +63,13 @@
         <table class="table table-striped display" id="datatableMembers">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Имя</th>
                 <th>Дата рождения</th>
                 <th>Подразделение</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="emp" items="${employersOfMeeting}">
-                <tr>
-                    <td>${emp.id}</td>
-                    <td>${emp.fullname}</td>
-                    <td>${emp.birthday}</td>
-                    <td>${emp.departName}</td>
-                </tr>
-            </c:forEach>
-
             </tbody>
         </table>
     </div>
@@ -114,9 +105,6 @@
         </button>
     </form>
 </div>
-
-
-
 
 <div id="success" style="display: none" class="alert alert-success"></div>
 <div id="error" style="display: none" class="alert alert-danger"></div>

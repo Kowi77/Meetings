@@ -17,12 +17,18 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @Entity
-@NamedNativeQuery(name=EmployerForUi.GET_ALL_MEMBERS, query="SELECT m.employer_id AS id, e.fullname, e.birthday, d.name AS departName FROM members m " +
-        "LEFT JOIN employers e ON m.employer_id = e.id LEFT JOIN departs d ON e.depart_id = d.id " +
-        "WHERE m.meet_id=:meetId", resultClass = EmployerForUi.class)
+@NamedNativeQueries({@NamedNativeQuery(name=EmployerForUi.GET_ALL_MEMBERS, query="SELECT m.employer_id AS id, e.fullname, e.birthday, d.name AS departName FROM members m " +
+                "LEFT JOIN employers e ON m.employer_id = e.id LEFT JOIN departs d ON e.depart_id = d.id " +
+                "WHERE m.meet_id=:meetId", resultClass = EmployerForUi.class),
+        @NamedNativeQuery(name=EmployerForUi.GET_ALL, query="SELECT e.id, e.fullname, e.birthday, d.name AS departName FROM employers e " +
+                "LEFT JOIN departs d ON e.depart_id = d.id", resultClass = EmployerForUi.class),
+        @NamedNativeQuery(name=EmployerForUi.GET, query="SELECT e.id, e.fullname, e.birthday, d.name AS departName FROM employers e " +
+                "LEFT JOIN departs d ON e.depart_id = d.id WHERE e.id=:empId", resultClass = EmployerForUi.class)})
 public class EmployerForUi {
 
     public static final String GET_ALL_MEMBERS = "EmployerForUi.getAllMembersOfMeeting";
+    public static final String GET_ALL = "EmployerForUi.getAll";
+    public static final String GET = "EmployerForUi.get";
 
     @Id
     @Column(name = "id")

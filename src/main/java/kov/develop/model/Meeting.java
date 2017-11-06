@@ -1,8 +1,6 @@
 package kov.develop.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -15,7 +13,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "meets")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode( exclude = "id")
 /*@NamedNativeQueries({ @NamedNativeQuery(name = Meeting.GET_ALL, query = "SELECT Meets.id, Meets.date, Meets.theme, Employers.fullName AS employer, Departs.name AS depart, COUNT(Members.employer_id) AS quantity FROM Meets" +
@@ -28,7 +28,7 @@ public class Meeting implements Serializable {
    // public static final String GET_ALL="Meeting.getAll";
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "theme")
@@ -50,6 +50,8 @@ public class Meeting implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)
     private Set<Integer> members;
+
+
     @Override
     public String toString() {
         return "Meeting{" +

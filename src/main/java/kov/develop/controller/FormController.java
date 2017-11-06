@@ -1,6 +1,7 @@
 package kov.develop.controller;
 
 import kov.develop.model.Employer;
+import kov.develop.model.EmployerForUi;
 import kov.develop.model.Meeting;
 import kov.develop.model.MeetingForUi;
 import kov.develop.service.DepartService;
@@ -11,7 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Form rest controller
@@ -21,6 +24,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = FormController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FormController {
+
+    public static void main(String[] args) {
+        new Meeting(null, "ww", LocalDateTime.now(), 1, new HashSet<>());
+    }
 
     static final String REST_URL = "/meeting";
 
@@ -40,21 +47,37 @@ public class FormController {
         return employerService.getAllByDepart(departId);
     }
 
+    @GetMapping("/membersByMeet/{meetId}")
+    public List<EmployerForUi> getAllMembersByMeet (@PathVariable("meetId") int meetId) {
+        return employerService.getAllMembersOfMeeting (meetId);
+    }
+
+    @GetMapping("/employerForUiById/{empId}")
+    public EmployerForUi get(@PathVariable("empId") int empId) {
+        return employerService.get(empId);
+    }
+
+
+
     @DeleteMapping("/employer/{id}")
     public void deleteEmployerFromMeeting (@PathVariable("id") int id){
         System.out.println("DELETE!!!!");
     }
 
     @PostMapping
-    public void saveMeeting (
-        @RequestParam(value = "id") int id,
+    public String saveMeeting (
+        @RequestParam(value = "id", required = false) String id,
         @RequestParam(value = "theme") String theme,
         @RequestParam(value = "date") String dateTime,
         @RequestParam(value = "depart") String depart,
         @RequestParam(value = "selectDepart") String selectDepart,
-        @RequestParam(value = "member") String member,
-        @RequestParam(value = "employer") String employer)
+        @RequestParam(value = "employer") String employer,
+        @RequestParam(value = "selectEmployer") String selectEmployer,
+        @RequestParam(value = "mems[]") Set<Integer> members)
     {
-        System.out.println(theme + dateTime + depart + selectDepart + member + employer);
+       Integer parseId = (id == "" ? null : Integer.parseInt(id));
+       System.out.println("*" + parseId + "*" + theme + "*" + LocalDateTime.parse(dateTime)+ "*" + Integer.parseInt(employer)+ "*" +  members);
+       meetingService.save(new Meeting(parseId, theme, LocalDateTime.parse(dateTime), Integer.parseInt(employer), members));
+       return "redirect:meetings";
     }
 }

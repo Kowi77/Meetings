@@ -1,42 +1,22 @@
 var ajaxUrl = "meeting/";
-var datatableApi;
 var form=$('#meetingForm');
 var memberForm=$('#memberForm');
 var employers;
+departId = 1;
 var firstId;
+var members;
 
-//Таблица с участниками совещания
-/*$(function () {
-    datatableApi = $("#datatableMembers").DataTable({
-        "ajax": {
-            "url": ajaxUrl + "employers/",
-            "dataSrc": ""
-        },
-        "paging": false,
-        "info": false,
-        "columns": [
-            {"data": "id",
-                "name":"qwerty"
-            },
-            {"data": "fullname"},
-            {"data": "birthday"},
-            {"data": "departId"},
-            {
-                "render": renderDeleteBtn,
-                "defaultContent": "",
-                "orderable": false
-            }
-        ],
-        "order": [[0,"asc"]],
-        "initComplete": errorHandling
-    });
-});*/
-
-// Значение по умолчанию поля департамент
+// Значение по умолчанию поля департамент, заполнение ответственного за него и списка участников
 $(document).ready(function() {
-    $("option[value=" + $("#depart").val() + "]").prop("selected", true);
-    departId = 0;
-    refreshSelectEmployer($("#depart").val());
+    if ($("#depart").val() != ""){
+        departId = $("#depart").val();
+        getMembers($("#id").val());
+    } else {
+        departId = 1;
+        $("#depart").val(1)
+    }
+    $("option[value=" + departId + "]").prop("selected", true);
+    refreshSelectEmployer(departId);
 })
 
 // Обработчик выбора департамента
@@ -47,11 +27,28 @@ $("#selectDepart").on('change', function () {
 
 });
 
-//Добавление участника
+//Добавление участника совещания
 function addMember () {
-    console.log($("#selectMember :selected").val())
+    id = $("#selectMember :selected").val();
+    members = (members == undefined ? [] : members);
+    members.forEach(function (mem) {
+        if(mem.id == id){
+            errorNoty("Этот работник уже участвует в совещании!");
+            id = -1;
+        }
+    });
+    if (id == -1)
+        return;
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "employerForUiById/" + id,
+        dataType: 'json',
+        success: function (data) {
+            members.push(data);
+           refreshMembers(members);
+        }
+    });
 };
-
 
 //Обновляем список возможных ответственных
 function refreshSelectEmployer(departId) {
@@ -72,54 +69,67 @@ function refreshSelectEmployer(departId) {
     });
 }
 
-function renderDeleteBtn(data, type, row) {
-        return "<a onclick='deleteRow(" + row.id + ");'>" +
-            "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
-}
-
-function deleteRow(id) {
-    $.ajax({
-        url: ajaxUrl + "employer/" + id,
-        type: "DELETE",
-        success: function () {
-            updateTable();
-            successNoty("Запись удалена!");
-        }
-    });
-}
-/*function updateTable() {
+//Получаем список участников
+function getMembers(meetId) {
     $.ajax({
         type: "GET",
-        url: ajaxUrl + "employers/",
+        url: ajaxUrl + "membersByMeet/" + meetId,
         dataType: 'json',
         success: function (data) {
-            datatableApi.clear().rows.add(data).draw();
+            members = data;
+            refreshMembers(data);
         }
     });
 }
 
-function updateTableByData(data) {
-    datatableApi.clear().rows.add(data).draw();
-}*/
-
-function errorHandling() {
-    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        errorNoty(jqXHR.status, jqXHR.responseText);
+//Обновляем список участников
+function refreshMembers(data) {
+    $("#datatableMembers > tbody").empty();
+    console.log(data);
+    data.forEach(function (emp) {
+        $("#datatableMembers > tbody").append("<tr><td>" + emp.fullname + "</td><td>" + emp.birthday +
+            "</td><td>" + emp.departName + "</td><td><a onclick='deleteMember(" + emp.id + ")'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Удалить</a></td></tr>");
     });
 }
+//
+//Удаляем из списка участников
+function deleteMember (id) {
+    members.forEach(function (m) {
+        if (m.id == id){
+            console.log(members);
+            members.splice(members.indexOf(m), 1);
+            console.log(members);
+            refreshMembers(members);
+            return;
+        }
+    })
+}
 
+//Сохранение данных о совещании
 function save() {
+
+    mems = [];
+    members.forEach(function (m) {
+        mems.push(m.id);
+    })
+
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: form.serialize(),
+        data: [form.serialize(), $.param({mems: mems})].join('&'),
         error: function () {
-            errorNoty("Error!!!")
+            errorHandling();
         },
         success: function () {
             successNoty("Данные о совещании сохранены!");
-            //TODO
+            document.location.replace("/");
         }
+    });
+}
+//Сообщения пользователю
+function errorHandling() {
+    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
+        errorNoty(jqXHR.status, jqXHR.responseText);
     });
 }
 

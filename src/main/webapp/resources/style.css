@@ -19,7 +19,9 @@ li > a {
     cursor: pointer;
 }
 
-
+input:invalid {
+    border-color: red;
+}
 
 #my-drop-down-menu li:hover ul.child{
     left:auto; /* (!) */

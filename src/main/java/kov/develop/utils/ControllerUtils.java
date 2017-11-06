@@ -14,11 +14,6 @@ import java.util.StringJoiner;
 
 public class ControllerUtils {
 
-    @Autowired
-    EmployerService employerService;
-    @Autowired
-    DepartService departService;
-
     //Prepare error message for response
     public static ResponseEntity<String> getErrors(BindingResult result){
         StringJoiner joiner = new StringJoiner("<br>");
@@ -31,18 +26,5 @@ public class ControllerUtils {
                     joiner.add(msg);
                 });
         return new ResponseEntity<>(joiner.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
-    }
-
-    public List<MeetingForUi> getMeetingForUi (List<Meeting> meetings){
-       /* List<MeetingForUi> result = new ArrayList<>();
-        for (Meeting meeting : meetings){
-            Employer employer = employerService.get(meeting.getEmployerId());
-            String[] name = employer.getFullname().split(" ");
-            String shortName = name[0].concat(" ").concat(name[1].substring(0)).concat(" ").concat(name[2].substring(0));
-            result.add(new MeetingForUi(meeting.getId(), meeting.getDate(), meeting.getTheme(), departService.get(employer.getDepartId()).getName(),
-                  shortName,
-
-        }*/
-       return null;
     }
 }

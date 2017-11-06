@@ -2,6 +2,7 @@ package kov.develop.controller;
 
 import kov.develop.model.Depart;
 import kov.develop.model.Employer;
+import kov.develop.model.EmployerForUi;
 import kov.develop.model.Meeting;
 import kov.develop.service.DepartService;
 import kov.develop.service.EmployerService;
@@ -45,15 +46,21 @@ public class RootController {
     //Переход на форму редактирования
     @GetMapping("/meeting/{id}")
     public String form(@PathVariable ("id") int id, ModelMap model){
-        Meeting meeting = (id == 0 ? new Meeting() : meetingService.get(id));
+
         List<Depart> departs = departService.getAll();
         model.addAttribute("departs", departs);
-        List<Employer> employers = employerService.getAll();
+
+        List<EmployerForUi> employers = employerService.getAllForUi();
         model.addAttribute("allEmployers", employers);
+
+        Meeting meeting = (id == 0 ? new Meeting() : meetingService.get(id));
         model.addAttribute("meeting", meeting);
-        Employer emp = (Employer) employers.stream().filter(e -> e.getId() == meeting.getEmployerId()).collect(Collectors.toList()).get(0);
-        model.addAttribute("currentDepartId", departs.stream().filter(d -> d.getId() == emp.getDepartId()).collect(Collectors.toList()).get(0).getId());
-        model.addAttribute("employersOfMeeting", employerService.getAllMembersOfMeeting(id));
+
+        if(meeting.getId() == null) return "meetingForm";
+
+        EmployerForUi emp = (EmployerForUi) employers.stream().filter(e -> e.getId() == meeting.getEmployerId()).collect(Collectors.toList()).get(0);
+        model.addAttribute("currentDepartId", employerService.getOne(emp.getId()).getDepartId());
+        model.addAttribute("membersOfMeeting", employerService.getAllMembersOfMeeting(id));
         return "meetingForm";
     }
 

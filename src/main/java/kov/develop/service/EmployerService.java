@@ -31,7 +31,7 @@ public class EmployerService {
         return repository.findAll();
     }
 
-    public Employer get (int id){
+    public Employer getOne (int id){
         log.info("Get Employer with {} id ", id);
         return repository.findOne(id);
     }
@@ -45,6 +45,13 @@ public class EmployerService {
         return forUiRepository.getAllMembersOfMeeting(meetId);
     }
 
+    public List<EmployerForUi> getAllForUi(){
+        return forUiRepository.getAll();
+    }
+
+    public EmployerForUi get(int empId){
+        return forUiRepository.getOne(empId);
+    }
 
 
 }

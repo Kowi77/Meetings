@@ -18,4 +18,15 @@ public class EmployerForUiRepository {
         return em.createNamedQuery(EmployerForUi.GET_ALL_MEMBERS, EmployerForUi.class).
                 setParameter("meetId", meetId).getResultList();
     }
+
+    public List<EmployerForUi> getAll () {
+        return em.createNamedQuery(EmployerForUi.GET_ALL, EmployerForUi.class).getResultList();
+    }
+
+    public EmployerForUi getOne(int empId){
+        return em.createNamedQuery(EmployerForUi.GET, EmployerForUi.class).
+                setParameter("empId", empId).getSingleResult();
+    }
+
+
 }

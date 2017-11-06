@@ -62,4 +62,7 @@ LEFT JOIN employers e ON m.employer_id = e.id
 LEFT JOIN departs d ON e.depart_id = d.id
 WHERE m.meet_id=4;*/
 
+/*SELECT e.id, e.fullname, e.birthday, d.name AS departName FROM employers e
+LEFT JOIN departs d ON e.depart_id = d.id;*/
+
 
