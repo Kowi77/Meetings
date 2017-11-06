@@ -73,35 +73,34 @@
             </tbody>
         </table>
     </div>
-
-    <div class="form-group">
-        <label for="selectMember" class="control-label col-xs-3">Участник</label>
-        <div class="col-xs-6">
-            <div class="select-and-input">
-                <form id="memberForm">
-                    <select name="selectMember" id="selectMember">
-                        <c:forEach var="emp" items="${allEmployers}">
-                            <option value="${emp.id}">${emp.fullname}</option>
-                        </c:forEach>
-                    </select>
-                    <a class="btn btn-primary" type="button" onclick="addMember()">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"> Добавить участника</span>
-                    </a>
-                </form>
-            </div>
+</form>
+<div class="form-group">
+    <label for="selectMember" class="control-label col-xs-3">Участник</label>
+    <div class="col-xs-6">
+        <div class="select-and-input">
+            <form id="memberForm">
+                <select name="selectMember" id="selectMember">
+                    <c:forEach var="emp" items="${allEmployers}">
+                        <option value="${emp.id}">${emp.fullname}</option>
+                    </c:forEach>
+                </select>
+                <a class="btn btn-primary" type="button" onclick="addMember()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"> Добавить участника</span>
+                </a>
+            </form>
         </div>
     </div>
+</div>
 
-    <div class="col-xs-offset-3 col-xs-9">
-        <button class="btn btn-primary" type="button" onclick="save()">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true">Сохранить</span>
-        </button>
-    </div>
-</form>
+<div class="col-xs-offset-3 col-xs-9">
+    <button class="btn btn-primary" type="button" onclick="save()">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true">Сохранить</span>
+    </button>
+</div>
 <div class="col-xs-offset-3 col-xs-9">
     <form action="/">
         <button class="btn btn-primary" type="submit">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true">Не сохранять</span>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true">Не сохранять</span>
         </button>
     </form>
 </div>

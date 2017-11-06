@@ -24,14 +24,12 @@ public class MeetingService {
     private MeetingForUiRepository meetingForUiRepository;
     private EmployerRepository employerRepository;
 
+    @Autowired
     public MeetingService(MeetingRepository meetingRepository, MeetingForUiRepository meetingForUiRepository, EmployerRepository employerRepository) {
         this.meetingRepository = meetingRepository;
         this.meetingForUiRepository = meetingForUiRepository;
         this.employerRepository = employerRepository;
     }
-
-    @Autowired
-
 
     public List<Meeting> getAll (){
         log.info("Get all Meetings");
@@ -59,16 +57,14 @@ public class MeetingService {
         return meetingRepository.save(meeting);
     }
 
-    public List<Meeting> filterByDepart(int id){
-        Set<Integer> set = employerRepository.findByDepartIdEquals(id).stream().map(e -> e.getId()).collect(Collectors.toSet());
-        //TODO исправить, добавить поле depart_id в meeting
-        List<Meeting> list = new ArrayList<>();
-        set.forEach(e -> list.addAll(meetingRepository.findAllByEmployerIdEquals(e)));
-        return list;
+    public List<MeetingForUi> getFilteredByDepart(int id){
+        log.info("Get Meetings by departament {} id ", id);
+        return meetingForUiRepository.getFilteredByDepart(id);
     }
     //Возвращаем только по собраниям, где работник ДОКЛАДЧИК, не участник
-    public List<Meeting> filterByEmployer(int id){
-        return meetingRepository.findAllByEmployerIdEquals(id);
+    public List<MeetingForUi> getFilteredByEmployer(int id){
+        log.info("Get Meetings by employer {} id ", id);
+        return meetingForUiRepository.getFilteredByEmployer(id);
     }
 
 }

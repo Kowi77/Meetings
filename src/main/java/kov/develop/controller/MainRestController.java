@@ -73,14 +73,14 @@ public class MainRestController {
     }
 
     @GetMapping("depart/{id}")
-    public List<Meeting> filterByDepart (@PathVariable("id") int id){
+    public List<MeetingForUi> filterByDepart (@PathVariable("id") int id){
 
-        return meetingService.filterByDepart(id);
+        return meetingService.getFilteredByDepart(id);
     }
 
     @GetMapping("employer/{id}")
-    public List<Meeting> filterByEmployer (@PathVariable("id") int id){
-        return meetingService.filterByEmployer(id);
+    public List<MeetingForUi> filterByEmployer (@PathVariable("id") int id){
+        return meetingService.getFilteredByEmployer(id);
     }
 
 

@@ -25,11 +25,4 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 
     List<Meeting> findAllByEmployerIdEquals(int id);
 
-    //TODO
-    //Поиск по дате.времени
-    //Удаление
-
-
-
-
 }

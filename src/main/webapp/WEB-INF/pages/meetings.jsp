@@ -17,14 +17,14 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="col-sm-10">
+    <div class="col-sm-8">
         <form class="form-horizontal" id="dateFilter">
             <%-- <div class="form-group">--%>
-            <label class="control-label col-sm-2" for="startDate">Время проведения с: </label>
+            <label class="control-label col-sm-1" for="startDate">Время проведения с: </label>
             <div class="col-sm-3">
                 <input class="form-control" type="datetime-local" name="startDate" id="startDate">
             </div>
-            <label class="control-label col-sm-2" for="endDate"> по: </label>
+            <label class="control-label col-sm-1" for="endDate"> по: </label>
             <div class="col-sm-3">
                 <input class="form-control" type="datetime-local" name="endDate" id="endDate">
             </div>
@@ -37,7 +37,7 @@
         </a>
     </div>
     <div class="col-sm-4">
-        <div class="dropdown col-sm-1" id="departFilter">
+        <div class="dropdown col-sm-2" id="departFilter">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Выбор подразделения
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -46,7 +46,7 @@
                 </c:forEach>
             </ul>
         </div>
-        <div class="dropdown col-sm-1" id="eployerFilter">
+        <div class="dropdown col-sm-2" id="eployerFilter">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">С участием
                 <span class="caret"></span></button>
             <ul class="dropdown-menu"

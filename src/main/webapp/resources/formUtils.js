@@ -1,10 +1,9 @@
 var ajaxUrl = "meeting/";
 var form=$('#meetingForm');
-var memberForm=$('#memberForm');
-var employers;
 departId = 1;
 var firstId;
 var members;
+var mems = [];
 
 // Значение по умолчанию поля департамент, заполнение ответственного за него и списка участников
 $(document).ready(function() {
@@ -107,8 +106,6 @@ function deleteMember (id) {
 
 //Сохранение данных о совещании
 function save() {
-
-    mems = [];
     members.forEach(function (m) {
         mems.push(m.id);
     })

@@ -15,6 +15,10 @@
     cursor: pointer;
 }
 
+.glyphicon glyphicon-remove{
+    color: red;
+}
+
 li > a {
     cursor: pointer;
 }
