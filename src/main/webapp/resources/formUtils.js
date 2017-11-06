@@ -86,7 +86,7 @@ function refreshMembers(data) {
     $("#datatableMembers > tbody").empty();
     console.log(data);
     data.forEach(function (emp) {
-        $("#datatableMembers > tbody").append("<tr><td>" + emp.fullname + "</td><td>" + emp.birthday +
+        $("#datatableMembers > tbody").append("<tr><td>" + emp.fullname + "</td><td>" + getAge(emp.birthday) +
             "</td><td>" + emp.departName + "</td><td><a onclick='deleteMember(" + emp.id + ")'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Удалить</a></td></tr>");
     });
 }
@@ -123,6 +123,13 @@ function save() {
         }
     });
 }
+
+//Конвертация даты рождения
+function getAge(birthday) {
+    var ageDate = new Date(Date.now() - new Date(birthday).getTime());
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
 //Сообщения пользователю
 function errorHandling() {
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {

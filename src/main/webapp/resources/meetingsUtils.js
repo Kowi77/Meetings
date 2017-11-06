@@ -2,6 +2,22 @@ var ajaxUrl = "meetings/";
 var datatableApi;
 var form=$('#detailsForm');
 
+$.ajaxSetup({
+    converters: {
+        "text json": function (stringData) {
+            var json = JSON.parse(stringData);
+            $(json).each(function () {
+                this.date = this.date.replace('T', ' ').substr(0, 16);
+                console.log(this.employer);
+                n = this.employer.split(' ');
+                this.employer = n[0] + " " + n[1].substr(0,1) + ". " + n[2].substr(0, 1) + ".";
+                console.log(this.employer);
+            });
+            return json;
+        }
+    }
+});
+
 //Prepare for add/edit user
 
 function add() {
@@ -47,10 +63,6 @@ function deleteRow(id) {
     });
 }
 
-
-
-//Update datatable
-
 function updateTable() {
     $.ajax({
         type: "GET",
@@ -78,12 +90,21 @@ function filterByEmployer(id) {
     });
 }
 
+function filterByDate() {
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + "date/",
+        data: $("#dateFilter").serialize(),
+        success: updateTableByData
+    });
+}
+
+//Отрисовка таблицы отфильтрованными данными
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
 }
 
 //Datatable
-
 $(function () {
     datatableApi = $("#datatable").DataTable({
         "ajax": {
@@ -93,8 +114,7 @@ $(function () {
         "paging": false,
         "info": false,
         "columns": [
-            {"data": "date",
-                "sHeightMatch": "auto"},
+            {"data": "date"},
             {"data": "theme",
                 "render": function (data, type, row) {return "<a href=meeting/" + row.id + "/>" + data + ""}},
             {"data": "depart"},

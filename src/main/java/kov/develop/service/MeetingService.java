@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -65,6 +66,10 @@ public class MeetingService {
     public List<MeetingForUi> getFilteredByEmployer(int id){
         log.info("Get Meetings by employer {} id ", id);
         return meetingForUiRepository.getFilteredByEmployer(id);
+    }
+    public List<MeetingForUi> getFilteredByDate(LocalDateTime start, LocalDateTime end){
+        log.info("Get Meetings beetwen {} and {} ", start, end);
+        return meetingForUiRepository.getFilteredByDate(start, end);
     }
 
 }

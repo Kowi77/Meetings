@@ -17,50 +17,52 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="col-sm-8">
-        <form class="form-horizontal" id="dateFilter">
-            <%-- <div class="form-group">--%>
-            <label class="control-label col-sm-1" for="startDate">Время проведения с: </label>
-            <div class="col-sm-3">
-                <input class="form-control" type="datetime-local" name="startDate" id="startDate">
-            </div>
-            <label class="control-label col-sm-1" for="endDate"> по: </label>
-            <div class="col-sm-3">
-                <input class="form-control" type="datetime-local" name="endDate" id="endDate">
-            </div>
-        </form>
-        <a class="btn btn-danger" type="button" onclick="clearFilter()">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
-        </a>
-        <a class="btn btn-primary" type="button" onclick="updateTable()">
-            <span class="glyphicon glyphicon-filter" aria-hidden="true"> Применить фильтр</span>
-        </a>
-    </div>
-    <div class="col-sm-4">
-        <div class="dropdown col-sm-2" id="departFilter">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Выбор подразделения
-                <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <c:forEach var="depart" items="${departs}">
-                    <li><a onclick="filterByDepart(${depart.id})">${depart.name}</a></li>
-                </c:forEach>
-            </ul>
+    <div class="row">
+        <div class=" col-lg-4">
+            <form class="form-horizontal" id="dateFilter">
+                <%-- <div class="form-group">--%>
+                <label class="control-label" for="startDate">Дата с: </label>
+                    <input class="form-control" type="datetime-local" name="startDate" id="startDate">
+                <label class="control-label" for="endDate"> по: </label>
+                    <input class="form-control" type="datetime-local" name="endDate" id="endDate">
+            </form>
         </div>
-        <div class="dropdown col-sm-2" id="eployerFilter">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">С участием
-                <span class="caret"></span></button>
-            <ul class="dropdown-menu"
-            <c:forEach var="emp" items="${employers}">
-                <li><a onclick="filterByEmployer(${emp.id})">${emp.fullname}</a></li>
-            </c:forEach>
-            </ul>
+        <div class="col-lg-4">
+            <a class="btn btn-primary" type="button" onclick="filterByDate()">
+                <span class="glyphicon glyphicon-filter" aria-hidden="true"> Выбор периода</span>
+            </a>
+            <a class="btn btn-danger" type="button" onclick="updateTable()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"> Показать все</span>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <div class="dropdown" id="departFilter">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true">Выбор подразделения</span>
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <c:forEach var="depart" items="${departs}">
+                        <li><a onclick="filterByDepart(${depart.id})">${depart.name}</a></li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="dropdown" id="eployerFilter">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true">С участием</span>
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu"
+                <c:forEach var="emp" items="${employers}">
+                    <li><a onclick="filterByEmployer(${emp.id})">${emp.fullname}</a></li>
+                </c:forEach>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 
 
 <div class="container-fluid">
-        <h7>Список проведенных совещаний</h7>
+        <h2>Список проведенных совещаний</h2>
         <table class="table table-striped display" id="datatable">
             <thead>
             <tr>

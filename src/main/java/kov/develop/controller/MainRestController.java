@@ -21,13 +21,17 @@ import java.util.List;
 /**
  * Main rest controller
  * Works at "/meetings" for getAll (GET)
- *       at "/depart/{id}"  at "/employer/{id}" for filter by
+ *       at "/depart/{id}"  at "/employer/{id}" (GET) for filter by depart or emploryer
+ *       at "/date" (POST) for filter by date
  */
 @RestController
 @RequestMapping(value = MainRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainRestController {
 
     static final String REST_URL = "/meetings";
+    //База не обрабатывает LocalDateTime.MAX и MIN. Установлены hardcode
+    static final LocalDateTime MAX_DATE = LocalDateTime.parse("9999-12-31T23:59");
+    static final LocalDateTime MIN_DATE = LocalDateTime.parse("0000-01-01T00:00");
 
     private DepartService departServiceservice;
     private MeetingService meetingService;
@@ -47,7 +51,7 @@ public class MainRestController {
 
 
     //Resolve some problems with auto parsing Date and empty id in new User
-    @InitBinder
+   /* @InitBinder
     protected void initBuilder(WebDataBinder binder){
         binder.registerCustomEditor(LocalDateTime.class, new PropertyEditorSupport() {
             @Override
@@ -70,17 +74,27 @@ public class MainRestController {
                 }
             }
         });
-    }
+    }*/
 
     @GetMapping("depart/{id}")
     public List<MeetingForUi> filterByDepart (@PathVariable("id") int id){
 
         return meetingService.getFilteredByDepart(id);
-    }
+     }
 
     @GetMapping("employer/{id}")
     public List<MeetingForUi> filterByEmployer (@PathVariable("id") int id){
-        return meetingService.getFilteredByEmployer(id);
+       return meetingService.getFilteredByEmployer(id);
+    }
+
+
+    @PostMapping(value = "/date")
+    public List<MeetingForUi> filterByDate(
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate) {
+        LocalDateTime start = (startDate.equals("") ? MIN_DATE: LocalDateTime.parse(startDate));
+        LocalDateTime end = (endDate.equals("") ? MAX_DATE : LocalDateTime.parse(endDate));
+        return meetingService.getFilteredByDate(start, end);
     }
 
 

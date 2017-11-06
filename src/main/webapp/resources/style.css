@@ -18,6 +18,10 @@
 .glyphicon glyphicon-remove{
     color: red;
 }
+.btn btn-primary {
+    margin-bottom: auto;
+    margin-top: auto;
+}
 
 li > a {
     cursor: pointer;
@@ -28,7 +32,7 @@ input:invalid {
 }
 
 #my-drop-down-menu li:hover ul.child{
-    left:auto; /* (!) */
+    left:auto;
 }
 
 #my-drop-down-menu li a.link{

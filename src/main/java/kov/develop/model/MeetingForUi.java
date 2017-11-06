@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
     @NamedNativeQuery(name = MeetingForUi.GET_ALL, query = MeetingForUi.QUERY + " GROUP BY Meets.theme", resultClass = MeetingForUi.class),
     @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_DEPART, query = MeetingForUi.QUERY + " WHERE e.depart_id=:departId GROUP BY Meets.theme", resultClass = MeetingForUi.class),
     @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_EMPLOYER, query = MeetingForUi.QUERY + " WHERE e.id=:empId GROUP BY Meets.theme", resultClass = MeetingForUi.class),
-    @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_DATE, query = MeetingForUi.QUERY, resultClass = MeetingForUi.class),
+    @NamedNativeQuery(name = MeetingForUi.GET_FILTERED_BY_DATE, query = MeetingForUi.QUERY + " WHERE Meets.date BETWEEN :start AND :end GROUP BY Meets.theme", resultClass = MeetingForUi.class),
 })
 public class MeetingForUi {
 
