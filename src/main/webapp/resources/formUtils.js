@@ -62,7 +62,7 @@ function refreshSelectEmployer(departId) {
             }
             $("#selectEmployer").empty();
             data.forEach(function (emp) {
-                $("#selectEmployer").append("<option value=" + emp.id + ">" + emp.fullname) + "</option>"
+                $("#selectEmployer").append("<option value=" + emp.id + ">" + emp.fullname + "</option>");
             });
         }
     });
