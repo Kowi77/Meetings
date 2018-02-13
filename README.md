@@ -1,4 +1,4 @@
-Инструкция по установке:
+Инструкция по установке:******
 
 1) Context path приложения "/", после деплоя через Tomcat оно доступно по адресу http://localhost:8080/meet/
 2) Таблицы создаются в БД "meetings" (url=jdbc:mysql://localhost:3306/meetings, user=root, password=root, driver=com.mysql.jdbc.Driver),
